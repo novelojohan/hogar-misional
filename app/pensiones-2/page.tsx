@@ -214,7 +214,6 @@ export default function Pensiones2() {
                 '--rdp-outline': '2px solid #d4af37',
                 '--rdp-outline-selected': '2px solid #d4af37',
               } as React.CSSProperties}
-              styles={{ nav_button_previous: { color: '#d4af37' }, nav_button_next: { color: '#d4af37' }, day_today: { color: '#d4af37', fontWeight: '900' } }}
               modifiersStyles={{
                 selected: { backgroundColor: '#d4af37', color: 'white', fontWeight: 'bold', borderRadius: '100%', border: 'none' },
                 booked: { backgroundColor: '#059669', color: 'white', fontWeight: 'bold', borderRadius: '100%', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.25)' }
