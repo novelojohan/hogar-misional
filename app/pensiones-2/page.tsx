@@ -142,16 +142,16 @@ export default function Pensiones2() {
   return (
     <main className="relative min-h-screen flex flex-col items-center p-5 md:p-8 pt-24 z-0">
       
-      <div className="absolute inset-0 -z-10 bg-[#f8fafc] overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-iglesia-blue/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-misional-gold/15 rounded-full blur-[120px]" />
+      {/* FONDO ELEGANTE OPTIMIZADO */}
+      <div className="absolute inset-0 -z-10 bg-slate-50 overflow-hidden">
+        <div className="absolute -top-[20%] -left-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(0,46,93,0.06)_0%,rgba(248,250,252,0)_70%)]" />
+        <div className="absolute -bottom-[20%] -right-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.1)_0%,rgba(248,250,252,0)_70%)]" />
       </div>
 
       <div className="w-full max-w-md space-y-6 mt-4">
         
-        {/* MAGIA: initial={false} */}
         <motion.section 
-          initial={false}
+          initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
           className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 shadow-lg shadow-iglesia-blue/5 border border-white flex flex-col items-center text-center"
@@ -176,9 +176,8 @@ export default function Pensiones2() {
           </div>
         </motion.section>
 
-        {/* MAGIA: initial={false} */}
         <motion.section 
-          initial={false}
+          initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
           className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 md:p-8 shadow-lg shadow-iglesia-blue/5 border border-white flex flex-col items-center"
@@ -192,6 +191,10 @@ export default function Pensiones2() {
               onSelect={handleDaySelect}
               locale={es}
               disabled={[{ before: today }]} 
+              fromDate={today}
+              toDate={maxFutureDate}
+              fromMonth={today}
+              toMonth={maxFutureDate}
               startMonth={today}
               endMonth={maxFutureDate}
               modifiers={{ booked: bookedDates }}
