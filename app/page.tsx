@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center p-5 md:p-8 z-0">
       
-      {/* FONDO OPTIMIZADO */}
+      {/* FONDO OPTIMIZADO A 100% */}
       <div className="absolute inset-0 -z-10 bg-slate-50 overflow-hidden">
-        <div className="absolute -top-[20%] -left-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(0,46,93,0.06)_0%,rgba(248,250,252,0)_70%)]" />
-        <div className="absolute -bottom-[20%] -right-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.1)_0%,rgba(248,250,252,0)_70%)]" />
+        <div className="absolute -top-[20%] -left-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(0,46,93,0.06)_0%,rgba(248,250,252,0)_100%)]" />
+        <div className="absolute -bottom-[20%] -right-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.1)_0%,rgba(248,250,252,0)_100%)]" />
       </div>
 
       <div className="w-full max-w-3xl flex flex-col items-center gap-12 md:gap-16 pt-10">
