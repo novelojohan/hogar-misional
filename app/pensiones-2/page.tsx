@@ -191,10 +191,6 @@ export default function Pensiones2() {
               onSelect={handleDaySelect}
               locale={es}
               disabled={[{ before: today }]} 
-              fromDate={today}
-              toDate={maxFutureDate}
-              fromMonth={today}
-              toMonth={maxFutureDate}
               startMonth={today}
               endMonth={maxFutureDate}
               modifiers={{ booked: bookedDates }}
