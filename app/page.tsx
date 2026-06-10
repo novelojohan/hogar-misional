@@ -1,14 +1,12 @@
-"use client"; 
-
-import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react"; 
 import Link from "next/link"; 
-import Image from "next/image"; // IMPORTANTE: Agregamos Image de Next.js
+import Image from "next/image"; 
 
 export default function Home() {
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center p-5 md:p-8 z-0">
       
+      {/* FONDO (Se pinta instantáneamente) */}
       <div className="absolute inset-0 -z-10 bg-[#f8fafc] overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-iglesia-blue/10 rounded-full blur-[100px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-misional-gold/15 rounded-full blur-[120px]" />
@@ -17,22 +15,16 @@ export default function Home() {
 
       <div className="w-full max-w-3xl flex flex-col items-center gap-12 md:gap-16 pt-10">
         
-        {/* 2. CENTRO: IMAGEN Y FRASE */}
-        <motion.div 
-          initial={false} // MAGIA: Evita la invisibilidad inicial
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center text-center gap-8 px-4"
-        >
+        {/* CENTRO: IMAGEN Y FRASE */}
+        <div className="flex flex-col items-center text-center gap-8 px-4">
           
           <div className="relative w-full max-w-md aspect-[4/5] flex justify-center items-center overflow-hidden transition-transform duration-500 hover:scale-[1.03]">
-            {/* USAMOS EL COMPONENTE IMAGE CON PRIORITY */}
             <Image 
               src="/img/cristo.png"
               alt="El Salvador"
-              width={500} // Ajusta si es necesario
-              height={625} // Ajusta si es necesario (para mantener el aspecto 4/5)
-              priority // OBLIGA al navegador a descargarla antes que nada
+              width={500} 
+              height={625} 
+              priority 
               className="w-full h-full object-contain"
               style={{
                 WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
@@ -53,15 +45,10 @@ export default function Home() {
               <span className="h-px w-8 bg-misional-gold/50"></span>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* 3. NAVEGACIÓN INFERIOR */}
-        <motion.nav 
-          initial={false} // MAGIA: Evita la invisibilidad inicial
-          animate={{ y: 0, opacity: 1 }}   
-          transition={{ delay: 0.5, duration: 0.7 }} 
-          className="w-full max-w-lg flex flex-col sm:flex-row gap-5 z-10"
-        >
+        {/* NAVEGACIÓN INFERIOR (Carga directa) */}
+        <nav className="w-full max-w-lg flex flex-col sm:flex-row gap-5 z-10">
           
           <Link 
             href="/pensiones-1"
@@ -90,7 +77,7 @@ export default function Home() {
               <div className="bg-slate-50 p-3 rounded-xl text-iglesia-blue group-hover:bg-iglesia-blue group-hover:text-white transition-colors duration-300">
                 <Calendar strokeWidth={1.5} size={28} />
               </div>
-              <ArrowRight size={20} className="text-slate-300 group-hover:text-misional-blue group-hover:translate-x-1 transition-all" />
+              <ArrowRight size={20} className="text-slate-300 group-hover:text-iglesia-blue group-hover:translate-x-1 transition-all" />
             </div>
 
             <div className="w-full text-left mt-2">
@@ -101,7 +88,7 @@ export default function Home() {
             </div>
           </Link>
 
-        </motion.nav>
+        </nav>
       </div>
     </main>
   );
