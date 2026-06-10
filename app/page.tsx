@@ -29,7 +29,7 @@ export default function Home() {
               width={500} 
               height={625} 
               priority 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain mix-blend-multiply"
               style={{
                 WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
                 maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
