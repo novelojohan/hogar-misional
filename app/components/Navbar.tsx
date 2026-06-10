@@ -51,10 +51,10 @@ export default function Navbar() {
       <header className="absolute top-0 left-0 right-0 z-40 bg-transparent pt-2">
         <div className="w-full max-w-6xl mx-auto flex justify-between items-center p-4 md:p-6">
           
-          {/* LOGO CON ANIMACIÓN */}
+          {/* LOGO CON ANIMACIÓN BLINDADA */}
           {isHome ? (
             <motion.button 
-              initial={{ x: -20, opacity: 0 }}
+              initial={false} // <- MAGIA: Visible desde el servidor
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               onClick={() => window.location.reload()}
@@ -66,7 +66,7 @@ export default function Navbar() {
             <Link href="/">
               <motion.h1 
                 key={pathname}
-                initial={{ x: -20, opacity: 0 }}
+                initial={false} // <- MAGIA: Visible desde el servidor
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="text-xl md:text-2xl font-bold tracking-tight text-iglesia-blue drop-shadow-sm"
@@ -76,10 +76,10 @@ export default function Navbar() {
             </Link>
           )}
 
-          {/* BOTÓN DE MENÚ (HAMBURGUESA) */}
+          {/* BOTÓN DE MENÚ (HAMBURGUESA) BLINDADO */}
           <motion.button 
             key={`btn-${pathname}`}
-            initial={{ x: 20, opacity: 0 }}
+            initial={false} // <- MAGIA: Visible desde el servidor
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             onClick={() => setIsMenuOpen(true)}
@@ -165,7 +165,6 @@ export default function Navbar() {
                             <span className="text-[10px] text-slate-400">Registros o cancelaciones</span>
                           </div>
                         </div>
-                        {/* Pon aquí el número de la presidenta o coordinadora */}
                         <a href="https://wa.me/529991223445" target="_blank" rel="noreferrer" className="p-2 text-emerald-600 bg-emerald-50 rounded-full hover:bg-emerald-100 transition-colors">
                           <Phone size={16} />
                         </a>
@@ -174,13 +173,12 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* SECCIÓN NUEVA: MISIONERAS (Guarda este código para el futuro) */}
+                {/* SECCIÓN NUEVA: MISIONERAS */}
                 <div className="space-y-3">
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-2">Misioneras</span>
                   
                   <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
                     
-                    {/* Misioneras - Pensiones 1 */}
                     <div className="p-4 flex items-center justify-between border-b border-slate-50">
                       <div className="flex items-center gap-3">
                         <div className="bg-slate-50 p-2 rounded-xl text-misional-gold">
@@ -196,7 +194,6 @@ export default function Navbar() {
                       </a>
                     </div>
 
-                    {/* Misioneras - Pensiones 2 */}
                     <div className="p-4 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="bg-slate-50 p-2 rounded-xl text-misional-gold">

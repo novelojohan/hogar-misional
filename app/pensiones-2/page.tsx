@@ -8,7 +8,6 @@ import { es } from "date-fns/locale";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-// 👇 IMPORTAMOS LA CONEXIÓN A SUPABASE
 import { supabase } from "@/lib/supabase";
 
 type BookingInfo = {
@@ -24,22 +23,17 @@ export default function Pensiones2() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookings, setBookings] = useState<Record<string, BookingInfo>>({});
   const [isAdmin, setIsAdmin] = useState(false);
-  
-  // Estado para controlar la carga de datos
   const [isLoading, setIsLoading] = useState(false); 
 
-  // Límites del calendario
   const today = new Date();
   const maxFutureDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
 
-  // 👇 1. CARGAR CITAS DE PENSIONES 2 AL ABRIR LA PÁGINA
   useEffect(() => {
     setIsAdmin(localStorage.getItem("isAdmin") === "true");
     fetchBookings();
   }, []);
 
   const fetchBookings = async () => {
-    // Filtramos solo por el tipo '2'
     const { data, error } = await supabase
       .from("bookings")
       .select("*")
@@ -76,7 +70,6 @@ export default function Pensiones2() {
     }
   };
 
-  // 👇 2. GUARDAR RESERVA EN SUPABASE (PENSION_TYPE = '2')
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -92,7 +85,7 @@ export default function Pensiones2() {
       .insert([
         {
           date: dateKey,
-          pension_type: "2", // <- IMPORTANTE: Diferenciador para este grupo
+          pension_type: "2",
           family_name: familyName,
           responsible: responsible,
           phone: phone,
@@ -121,7 +114,6 @@ export default function Pensiones2() {
     setSelectedDate(undefined);
   };
 
-  // 👇 3. BORRAR RESERVA (SOLO ADMIN)
   const handleDeleteBooking = async () => {
     if (!confirm("¿Deseas liberar esta fecha para pensiones 2?")) return;
     setIsLoading(true);
@@ -150,7 +142,6 @@ export default function Pensiones2() {
   return (
     <main className="relative min-h-screen flex flex-col items-center p-5 md:p-8 pt-24 z-0">
       
-      {/* FONDO ELEGANTE */}
       <div className="absolute inset-0 -z-10 bg-[#f8fafc] overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-iglesia-blue/10 rounded-full blur-[100px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-misional-gold/15 rounded-full blur-[120px]" />
@@ -158,9 +149,9 @@ export default function Pensiones2() {
 
       <div className="w-full max-w-md space-y-6 mt-4">
         
-        {/* SECCIÓN 1: TÍTULO Y ALERTA */}
+        {/* MAGIA: initial={false} */}
         <motion.section 
-          initial={{ y: 30, opacity: 0 }}
+          initial={false}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
           className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 shadow-lg shadow-iglesia-blue/5 border border-white flex flex-col items-center text-center"
@@ -185,9 +176,9 @@ export default function Pensiones2() {
           </div>
         </motion.section>
 
-        {/* SECCIÓN 2: CALENDARIO */}
+        {/* MAGIA: initial={false} */}
         <motion.section 
-          initial={{ y: 30, opacity: 0 }}
+          initial={false}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
           className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 md:p-8 shadow-lg shadow-iglesia-blue/5 border border-white flex flex-col items-center"
@@ -229,7 +220,6 @@ export default function Pensiones2() {
         </motion.section>
       </div>
 
-      {/* MODAL / FORMULARIO */}
       <AnimatePresence mode="wait">
         {isModalOpen && selectedDate && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/40 backdrop-blur-md flex justify-center items-center z-[100] p-4">
@@ -277,7 +267,6 @@ export default function Pensiones2() {
                       )}
                     </div>
 
-                    {/* BOTÓN CANCELAR (SOLO ADMIN) */}
                     {isAdmin && (
                       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="pt-4 border-t border-slate-200 border-dashed">
                         <button onClick={handleDeleteBooking} disabled={isLoading} className="w-full flex justify-center items-center gap-2 bg-red-50 text-red-600 border border-red-100 hover:bg-red-600 hover:text-white disabled:opacity-50 font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-sm tracking-[0.15em] uppercase text-[10px]">

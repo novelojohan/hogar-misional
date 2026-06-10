@@ -8,7 +8,6 @@ import { es } from "date-fns/locale";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-// 👇 IMPORTAMOS EL TÚNEL HACIA SUPABASE
 import { supabase } from "@/lib/supabase";
 
 type BookingInfo = {
@@ -24,22 +23,17 @@ export default function Pensiones1() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookings, setBookings] = useState<Record<string, BookingInfo>>({});
   const [isAdmin, setIsAdmin] = useState(false);
-  
-  // Nuevo estado para evitar que le den doble clic al botón mientras se guarda
   const [isLoading, setIsLoading] = useState(false); 
 
-  // Límites del calendario
   const today = new Date();
   const maxFutureDate = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
 
-  // 👇 1. LEER LAS CITAS DESDE SUPABASE AL CARGAR LA PÁGINA
   useEffect(() => {
     setIsAdmin(localStorage.getItem("isAdmin") === "true");
     fetchBookings();
   }, []);
 
   const fetchBookings = async () => {
-    // Traemos solo las reservas de Pensiones 1 (pension_type = '1')
     const { data, error } = await supabase
       .from("bookings")
       .select("*")
@@ -50,7 +44,6 @@ export default function Pensiones1() {
       return;
     }
 
-    // Convertimos la lista de Supabase a nuestro formato de fechas del calendario
     const bookingsRecord: Record<string, BookingInfo> = {};
     if (data) {
       data.forEach((row) => {
@@ -77,7 +70,6 @@ export default function Pensiones1() {
     }
   };
 
-  // 👇 2. GUARDAR LA CITA EN SUPABASE
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -88,13 +80,12 @@ export default function Pensiones1() {
     const phone = formData.get("phone") as string;
     const address = formData.get("address") as string;
 
-    // Insertamos en la tabla
     const { error } = await supabase
       .from("bookings")
       .insert([
         {
           date: dateKey,
-          pension_type: "1", // <- Identificador clave para Pensiones 1
+          pension_type: "1",
           family_name: familyName,
           responsible: responsible,
           phone: phone,
@@ -109,7 +100,6 @@ export default function Pensiones1() {
       return;
     }
 
-    // Si se guardó bien en la nube, actualizamos la pantalla
     const newBooking: BookingInfo = {
       familyName,
       responsible,
@@ -124,7 +114,6 @@ export default function Pensiones1() {
     setSelectedDate(undefined);
   };
 
-  // 👇 3. CANCELAR LA CITA EN SUPABASE (MODO ADMIN)
   const handleDeleteBooking = async () => {
     if (!confirm("¿Segura que deseas liberar esta fecha?")) return;
     setIsLoading(true);
@@ -142,7 +131,6 @@ export default function Pensiones1() {
       return;
     }
 
-    // Si se borró de la nube, lo quitamos de la pantalla
     const newBookings = { ...bookings };
     delete newBookings[dateKey];
     setBookings(newBookings);
@@ -154,7 +142,6 @@ export default function Pensiones1() {
   return (
     <main className="relative min-h-screen flex flex-col items-center p-5 md:p-8 pt-24 z-0">
       
-      {/* FONDO ELEGANTE */}
       <div className="absolute inset-0 -z-10 bg-[#f8fafc] overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-iglesia-blue/10 rounded-full blur-[100px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-misional-gold/15 rounded-full blur-[120px]" />
@@ -162,9 +149,9 @@ export default function Pensiones1() {
 
       <div className="w-full max-w-md space-y-6 mt-4">
         
-        {/* SECCIÓN 1: TÍTULO Y ALERTA (Minimalista) */}
+        {/* MAGIA: initial={false} para evitar el parpadeo invisible */}
         <motion.section 
-          initial={{ y: 30, opacity: 0 }}
+          initial={false}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
           className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 shadow-lg shadow-iglesia-blue/5 border border-white flex flex-col items-center text-center"
@@ -178,9 +165,9 @@ export default function Pensiones1() {
           </div>
         </motion.section>
 
-        {/* SECCIÓN 2: CALENDARIO PREMIUM */}
+        {/* MAGIA: initial={false} */}
         <motion.section 
-          initial={{ y: 30, opacity: 0 }}
+          initial={false}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
           className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-6 md:p-8 shadow-lg shadow-iglesia-blue/5 border border-white flex flex-col items-center"
@@ -200,11 +187,9 @@ export default function Pensiones1() {
               selected={selectedDate}
               onSelect={handleDaySelect}
               locale={es}
-              
-              /* BLINDAJE DE NAVEGACIÓN */
               disabled={[{ before: today }]} 
+              startMonth={today}
               endMonth={maxFutureDate}
-
               modifiers={{ booked: bookedDates }}
               style={{
                 '--rdp-accent-color': '#d4af37',
@@ -224,7 +209,6 @@ export default function Pensiones1() {
             />
           </div>
           
-          {/* LEYENDA DEL CALENDARIO */}
           <div className="flex gap-8 mt-6 pt-6 border-t border-slate-200/60 w-full justify-center">
             <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-600 uppercase tracking-widest">
               <div className="w-3 h-3 rounded-full bg-emerald-600 shadow-sm"></div> Reservado
@@ -237,7 +221,6 @@ export default function Pensiones1() {
 
       </div>
 
-      {/* MODAL / FORMULARIO */}
       <AnimatePresence mode="wait">
         {isModalOpen && selectedDate && (
           <motion.div 
@@ -303,7 +286,6 @@ export default function Pensiones1() {
                       )}
                     </div>
 
-                    {/* BOTÓN SECRETO DE CANCELACIÓN (SOLO ADMIN) */}
                     {isAdmin && (
                       <motion.div 
                         initial={{ opacity: 0, y: 10 }}
