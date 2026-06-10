@@ -161,11 +161,11 @@ export default function Navbar() {
                         <div className="flex items-center gap-3">
                           <div className="bg-slate-50 p-2 rounded-xl text-misional-gold"><BookUser size={18}/></div>
                           <div className="flex flex-col">
-                            <span className="text-xs font-bold text-slate-700">Gloria Cereno</span>
+                            <span className="text-xs font-bold text-slate-700">Hna Mary Ponce</span>
                             <span className="text-[10px] text-slate-400">Registros o cancelaciones</span>
                           </div>
                         </div>
-                        <a href="https://wa.me/529991223445" target="_blank" rel="noreferrer" className="p-2 text-emerald-600 bg-emerald-50 rounded-full hover:bg-emerald-100 transition-colors">
+                        <a href="https://wa.me/529994471587" target="_blank" rel="noreferrer" className="p-2 text-emerald-600 bg-emerald-50 rounded-full hover:bg-emerald-100 transition-colors">
                           <Phone size={16} />
                         </a>
                       </div>
@@ -204,7 +204,7 @@ export default function Navbar() {
                           <span className="text-[10px] text-slate-400">Pensiones 2</span>
                         </div>
                       </div>
-                      <a href="https://wa.me/529991274463" target="_blank" rel="noreferrer" className="p-2 text-emerald-600 bg-emerald-50 rounded-full hover:bg-emerald-100 transition-colors">
+                      <a href="https://wa.me/529961058151" target="_blank" rel="noreferrer" className="p-2 text-emerald-600 bg-emerald-50 rounded-full hover:bg-emerald-100 transition-colors">
                         <Phone size={16} />
                       </a>
                     </div>

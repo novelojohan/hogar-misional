@@ -112,6 +112,7 @@ export default function Pensiones2() {
     setIsLoading(false);
     setIsModalOpen(false);
     setSelectedDate(undefined);
+    window.location.reload();
   };
 
   const handleDeleteBooking = async () => {
@@ -137,12 +138,12 @@ export default function Pensiones2() {
     setIsLoading(false);
     setIsModalOpen(false);
     setSelectedDate(undefined);
+    window.location.reload();
   };
 
   return (
     <main className="relative min-h-screen flex flex-col items-center p-5 md:p-8 pt-24 z-0">
       
-      {/* FONDO ELEGANTE OPTIMIZADO */}
       <div className="absolute inset-0 -z-10 bg-slate-50 overflow-hidden">
         <div className="absolute -top-[20%] -left-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(0,46,93,0.06)_0%,rgba(248,250,252,0)_70%)]" />
         <div className="absolute -bottom-[20%] -right-[10%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.1)_0%,rgba(248,250,252,0)_70%)]" />
@@ -184,7 +185,11 @@ export default function Pensiones2() {
         >
           <h2 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.25em] mb-6 text-center w-full">Selecciona una fecha</h2>
           
-          <div className="w-full flex justify-center [&_.rdp]:m-0 [&_.rdp-table]:w-full [&_.rdp-table]:max-w-[320px] [&_.rdp-caption_label]:text-[#002e5d] [&_.rdp-caption_label]:font-extrabold [&_.rdp-caption_label]:text-xl">
+          {/* Contenedor con llave dinámica basada en la longitud de las reservas */}
+          <div 
+            key={Object.keys(bookings).length}
+            className="w-full flex justify-center [&_.rdp]:m-0 [&_.rdp-table]:w-full [&_.rdp-table]:max-w-[320px] [&_.rdp-caption_label]:text-[#002e5d] [&_.rdp-caption_label]:font-extrabold [&_.rdp-caption_label]:text-xl"
+          >
             <DayPicker
               mode="single"
               selected={selectedDate}
