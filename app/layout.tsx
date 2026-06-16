@@ -26,7 +26,7 @@ export default function RootLayout({
 
   // 🔥 INTERRUPTOR DE MANTENIMIENTO
   // Cambia a 'true' para bloquear toda la página y mostrar la pantalla de actualización
-  const isMaintenance = false; 
+  const isMaintenance = true; 
 
   // PANTALLA DE MANTENIMIENTO
   if (isMaintenance) {
